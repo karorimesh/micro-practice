@@ -1,0 +1,26 @@
+server:
+  port: 0
+spring:
+  application:
+    name: accounts-service
+
+  datasource:
+    username: 'postgres'
+    url: jdbc:postgresql://localhost:5432/hello_dev
+    password: 'postgres'
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: 'true'
+    show-sql: 'true'
+    hibernate:
+      ddl-auto: none
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yml
+    enabled: true
+    default-schema: public
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin:!myDiscovery!@localhost:8081/eureka

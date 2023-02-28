@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0
+      author: mesh
+      changes:
+        - createTable:
+            tableName: port_account
+            columns:
+            - column:
+                name: id
+                type: uuid
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: account_number
+                type: varchar(50)
+            - column:
+                name: active
+                type: boolean
+            - column:
+                name: account_owner
+                type: uuid
+            - column:
+                name: account_balance
+                type: double

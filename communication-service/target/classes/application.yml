@@ -1,0 +1,20 @@
+server:
+  port: 0
+spring:
+  application:
+    name: communication-service
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: 'tracom.tms@gmail.com'
+    password: 'bqejfdqcnzhihuyu'
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://admin:!myDiscovery!@localhost:8081/eureka

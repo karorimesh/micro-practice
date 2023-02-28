@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: eureka-server
+  security:
+    user:
+      name: 'admin'
+      password: '{noop}!myDiscovery!'
+  freemarker:
+    template-loader-path: classpath:/templates/
+    prefer-file-system-access: false
+server:
+  port: 8081
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false

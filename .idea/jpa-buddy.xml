@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpaBuddyIdeaProjectConfig">
+    <option name="defaultUnitInitialized" value="true" />
+    <option name="renamerInitialized" value="true" />
+    <option name="snapshotDbValue" value="e6881b07-eb11-42d4-9ee2-578387c27d92" />
+    <option name="updateChangeLogPath" value="accounts-service/src/main/resources/db/changelog/db.changelog-master.yml" />
+    <option name="updateDbConnectionName" value="e6881b07-eb11-42d4-9ee2-578387c27d92" />
+    <option name="updateLogLevel" value="INFO" />
+    <option name="liquibaseAuthor" value="" />
+    <option name="newEntityIdType" value="UUID" />
+    <option name="newEntityIdStrategy" value="Auto" />
+  </component>
+</project>
