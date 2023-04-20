@@ -1,12 +1,12 @@
 server:
-  port: 0
+  port: 8087
 spring:
   application:
     name: accounts-service
 
   datasource:
     username: 'postgres'
-    url: jdbc:postgresql://localhost:5432/hello_dev
+    url: jdbc:postgresql://localhost:5432/portfolio
     password: 'postgres'
   jpa:
     properties:
@@ -15,11 +15,14 @@ spring:
         format_sql: 'true'
     show-sql: 'true'
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yml
     enabled: true
     default-schema: public
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
 eureka:
   client:
     service-url:

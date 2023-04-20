@@ -1,8 +1,16 @@
 package org.example.accounts.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.accounts.audit.AuditLogEntity;
+import org.example.accounts.audit.AuditorEntity;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
@@ -14,6 +22,7 @@ import java.util.UUID;
 @Setter
 @ToString
 @Entity
+@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 @Table(name = "port_account")
 public class Account {
     @Id
@@ -33,8 +42,12 @@ public class Account {
     @JdbcTypeCode(SqlTypes.DOUBLE)
     private Double accountBalance;
 
-    @Column(name = "account_owner")
+    @ToString.Exclude
+    @JoinColumn(name = "account_owner")
     @JdbcTypeCode(SqlTypes.UUID)
-    private UUID accountOwner;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonManagedReference
+//    @JsonBackReference
+    private Customer accountOwner;
 
 }

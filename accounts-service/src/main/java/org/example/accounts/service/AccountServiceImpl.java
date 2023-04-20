@@ -1,21 +1,28 @@
 package org.example.accounts.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.accounts.dto.AccountCreateRequest;
 import org.example.accounts.dto.AccountCreateResponse;
+import org.example.accounts.dto.History;
 import org.example.accounts.entities.Account;
 import org.example.accounts.enums.AppConstants;
 import org.example.accounts.repository.AccountRepository;
+import org.example.accounts.repository.CustomerRepository;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceImpl implements AccountService{
 
     private final AccountRepository accountRepository;
+    private final CustomerRepository customerRepository;
 
-    public AccountServiceImpl(AccountRepository accountRepository) {
+    public AccountServiceImpl(CustomerRepository customerRepository, AccountRepository accountRepository) {
+        this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
     }
 
@@ -25,7 +32,9 @@ public class AccountServiceImpl implements AccountService{
         Account account = Account.builder()
                 .accountBalance(accountCreateRequest.balance())
                 .accountNumber(Integer.toString(accountNumber))
-                .accountOwner(accountCreateRequest.accountOwner())
+                .accountOwner(customerRepository
+                        .findById(accountCreateRequest.accountOwner())
+                        .orElse(null))
                 .active(accountCreateRequest.active())
                 .build();
         try {
@@ -42,5 +51,15 @@ public class AccountServiceImpl implements AccountService{
                     null,
                     new Date());
         }
+    }
+
+    @Override
+    public List<History> getAllHistory(UUID id) {
+        return accountRepository.findRevisions(id)
+                .stream()
+                .map(h -> new History(
+                        h.getRevisionNumber().orElse(0),
+                        h.getEntity().toString()))
+                .collect(Collectors.toList());
     }
 }
