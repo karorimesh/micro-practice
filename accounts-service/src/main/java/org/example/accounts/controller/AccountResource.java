@@ -6,12 +6,14 @@ import org.example.accounts.dto.AccountCreateResponse;
 import org.example.accounts.dto.History;
 import org.example.accounts.entities.Account;
 import org.example.accounts.service.AccountService;
+import org.json.JSONObject;
 import org.springframework.data.history.Revision;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -27,6 +29,12 @@ public class AccountResource {
     @PostMapping
     public ResponseEntity<AccountCreateResponse> createAccount (@RequestBody AccountCreateRequest createRequest){
         AccountCreateResponse response = accountService.createAccount(createRequest);
+        return new ResponseEntity<>(response, HttpStatusCode.valueOf(HttpStatus.SC_CREATED));
+    }
+
+    @PatchMapping
+    public ResponseEntity<String> updateAccount(@RequestBody Map<String, Object> updateRequest) {
+        String response = accountService.updateAccount(updateRequest);
         return new ResponseEntity<>(response, HttpStatusCode.valueOf(HttpStatus.SC_CREATED));
     }
 
